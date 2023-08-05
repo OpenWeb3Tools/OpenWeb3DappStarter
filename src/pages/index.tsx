@@ -4,8 +4,12 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Open Web3 Start DApp: Home Page</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>OpenWeb3 Starter DApp: Home Page</title>
+        <link
+          rel="shortcut icon"
+          type="image/svg+xml"
+          href="placeholder-logo.svg"
+        />
       </Head>
     </div>
   );
