@@ -1,6 +1,6 @@
-import { walletList } from "./const";
 import Image from "next/image";
 import { useConnect } from "wagmi";
+import { walletList, walletsWithLogos } from "./const";
 
 export default function WalletSelectGrid() {
   const { connect, connectors, error, isLoading, pendingConnector } =
@@ -12,48 +12,17 @@ export default function WalletSelectGrid() {
   const getInjectedConnector = () =>
     connectors.filter((x) => x.id === "injected")[0];
 
-  const getInjectedLogoUrl = () =>
-    "./wallets/" + getInjectedConnector()?.name + ".svg";
-
-  // TODO: Add logos for the following:
-  // const logosToDo = [
-  //   "Apex Wallet",
-  //   "Core Wallet",
-  //   "Backpack",
-  //   "Bifrost Wallet",
-  //   "BitKeep",
-  //   "Bitski",
-  //   "BlockWallet",
-  //   "Brave Wallet",
-  //   "Dawn Wallet",
-  //   "Defiant",
-  //   "Desig Wallet",
-  //   "Enkrypt",
-  //   "Exodus",
-  //   "Fordefi",
-  //   "Frame",
-  //   "Frontier Wallet",
-  //   "GameStop Wallet",
-  //   "HAQQ Wallet",
-  //   "HyperPay Wallet",
-  //   "ImToken",
-  //   "Halo Wallet",
-  //   "KuCoin Wallet",
-  //   "Nova Wallet",
-  //   "OKX Wallet",
-  //   "1inch Wallet",
-  //   "Opera",
-  //   "Phantom",
-  //   "Ripio Portal",
-  //   "Rainbow",
-  //   "Status",
-  //   "Talisman",
-  //   "Taho",
-  //   "TokenPocket",
-  //   "Tokenary",
-  //   "TTWallet",
-  //   "Zerion",
-  // ];
+  const getInjectedLogoUrl = () => {
+    let hasLogo = false;
+    const injectedConnectorName = getInjectedConnector()?.name ?? "";
+    if (injectedConnectorName.length > 0) {
+      hasLogo = walletsWithLogos.includes(injectedConnectorName);
+    }
+    if (hasLogo) {
+      return "./wallets/" + injectedConnectorName + ".svg";
+    }
+    return "./wallets/MetaMask.svg"; // TODO: Replace with some sort of generic injected wallet icon
+  };
 
   return (
     <>
@@ -67,7 +36,7 @@ export default function WalletSelectGrid() {
             key={wallet.id}
             className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow"
           >
-            <div className="flex flex-1 flex-col p-8">
+            <div className="flex flex-1 flex-col p-4">
               <Image
                 src={
                   wallet.id !== "injected" ? wallet.logo : getInjectedLogoUrl()
@@ -75,7 +44,7 @@ export default function WalletSelectGrid() {
                 height="128"
                 width="128"
                 alt={wallet.name}
-                className="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
+                className="mx-auto h-32 w-32 flex-shrink-0 rounded-full bg-gray-100 p-2"
               />
               <h3 className="mt-6 text-sm font-medium text-gray-900">
                 {connectors.filter((x) => x.id === wallet.id)[0]?.name}

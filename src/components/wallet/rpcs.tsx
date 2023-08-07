@@ -24,10 +24,6 @@ export const rpcList: RpcsPropsByChain = {
         tracking: "limited",
       },
       {
-        url: "https://eth.getblock.io/&lt;api_key&gt;/mainnet/",
-        tracking: "none",
-      },
-      {
         url: "https://ethereum.publicnode.com",
         tracking: "none",
       },
