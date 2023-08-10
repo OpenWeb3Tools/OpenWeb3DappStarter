@@ -125,7 +125,7 @@ export const walletList: WalletProps[] = [
   {
     id: "coinbaseWallet",
     name: "Coinbase Wallet",
-    url: "/wallets/CoinbaseWallet.svg",
+    url: "/wallets/Coinbase Wallet.svg",
     logo: "https://www.svgrepo.com/show/331345/coinbase-v2.svg",
     tags: ["Desktop", "iOS", "Android"],
     desc: "Offering a browser extension for desktop users and also mobile apps for iOS & android",
@@ -170,9 +170,19 @@ export const wagmiConfig = createConfig({
 
 // These wallets have matching SVG files in /public/wallets folder
 export const walletsWithLogos = [
-  "Coinbase Wallet",
+  // Non-injected wallets
+  "Coinbase Wallet", // This is *also* an injected wallet
+  "Ledger",
+  "WalletConnect",
+  // Injected Wallets
+  "1inch Wallet",
+  "BitKeep",
+  "Brave Wallet",
+  "Halo Wallet",
+  "KuCoin Wallet",
   "MathWallet",
   "MetaMask",
+  "Opera",
   "Rabby Wallet",
   "Trust Wallet",
   "XDEFI Wallet",
@@ -184,10 +194,8 @@ export const walletsWithoutLogos = [
   "Core Wallet",
   "Backpack",
   "Bifrost Wallet",
-  "BitKeep",
   "Bitski",
   "BlockWallet",
-  "Brave Wallet",
   "Dawn Wallet",
   "Defiant",
   "Desig Wallet",
@@ -200,12 +208,8 @@ export const walletsWithoutLogos = [
   "HAQQ Wallet",
   "HyperPay Wallet",
   "ImToken",
-  "Halo Wallet",
-  "KuCoin Wallet",
   "Nova Wallet",
   "OKX Wallet",
-  "1inch Wallet",
-  "Opera",
   "Phantom",
   "Ripio Portal",
   "Rainbow",

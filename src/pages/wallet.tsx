@@ -25,7 +25,12 @@ export default function Wallet() {
       {isConnected ? (
         <>
           <div>Connected to {ensName ?? address}</div>
-          <button onClick={() => disconnect()}>Disconnect</button>
+          <button
+            className="rounded-md border-2 border-solid border-neutral-800 p-2"
+            onClick={() => disconnect()}
+          >
+            Disconnect
+          </button>
           {chain && <div>Connected to {chain.name}</div>}
           {chains && (
             <div>
@@ -35,7 +40,7 @@ export default function Wallet() {
                   disabled={!switchNetwork || x.id === chain?.id}
                   key={x.id}
                   onClick={() => switchNetwork?.(x.id)}
-                  className="ml-2"
+                  className="ml-2 rounded-md border-2 border-solid border-neutral-800 p-2"
                 >
                   {x.name}
                   {isLoading && pendingChainId === x.id && " (switching)"}

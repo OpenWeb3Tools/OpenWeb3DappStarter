@@ -97,10 +97,17 @@ export default function Home() {
           Write Function Examples ({wethSymbol?.toString()} ERC20 Contract)
         </h3>
         <div>
-          <button className="p-2" disabled={!address}>
+          <button
+            className="rounded-md border-2 border-solid border-neutral-800 p-2"
+            disabled={!address}
+          >
             Approve (yourself) to spend 1 {wethSymbol?.toString()}
           </button>
-          <button className="p-2" disabled={!writeTsfTxn || !address || !isEnoughWeth()} onClick={() => writeTsfTxn?.()}>
+          <button
+            className="ml-2 rounded-md border-2 border-solid border-neutral-800 p-2"
+            disabled={!writeTsfTxn || !address || !isEnoughWeth()}
+            onClick={() => writeTsfTxn?.()}
+          >
             Tsf 0.01 {wethSymbol?.toString()} to yourself
           </button>
         </div>

@@ -1,11 +1,12 @@
 import { Fragment, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useConnect } from "wagmi";
 import { Dialog, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Sidebar from "~/components/layout/sidebar";
 import Image from "next/image";
 import { shortenString } from "~/helpers/formatting";
 import Link from "next/link";
+import { walletsWithLogos } from "../wallet/const";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -14,6 +15,29 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { address } = useAccount();
+  const { connector: activeConnector } = useAccount();
+  const { connectors } = useConnect();
+
+  const getInjectedConnector = () =>
+    connectors.filter((x) => x.id === "injected")[0];
+
+  const findWalletLogoUrl = (connectorName: string) => {
+    let hasLogo = false;
+    if (connectorName.length > 0) {
+      hasLogo = walletsWithLogos.includes(connectorName);
+    }
+    if (hasLogo) {
+      return "./wallets/" + connectorName + ".svg";
+    }
+    return "./wallets/MetaMask.svg"; // TODO: Replace with some sort of generic injected wallet icon
+  };
+
+  const getWalletLogoUrl = () =>
+    findWalletLogoUrl(
+      activeConnector?.name
+        ? activeConnector.name
+        : getInjectedConnector()?.name ?? ""
+    );
 
   return (
     <>
@@ -124,14 +148,14 @@ export default function Layout({ children }: LayoutProps) {
                 <Link href="/wallet" className="relative">
                   <div className="-m-1.5 flex cursor-pointer items-center p-1.5">
                     <Image
-                      src="./icons/wallet.svg"
+                      src={getWalletLogoUrl()}
                       alt="wallet icon"
-                      width="24"
-                      height="24"
+                      height="30"
+                      width="30"
                     />
                     <span className="hidden lg:flex lg:items-center">
                       <span
-                        className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                        className="ml-2 text-sm font-semibold leading-6 text-gray-900"
                         aria-hidden="true"
                       >
                         {address ? shortenString(address) : "Connect Wallet"}
